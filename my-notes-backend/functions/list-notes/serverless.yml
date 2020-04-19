@@ -1,0 +1,20 @@
+functions:
+  list-notes:
+    handler: functions/list-notes/handler.func
+    role: arn:aws:iam::093271654888:role/my-notes-role-radek
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+    events:
+      - http:
+          path: notes
+          method: get
+          cors: true
+          authorizer:
+            name: my-notes-authorizer-${opt:stage}
+            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+    package:
+      individually: true
+      exclude:
+      - ./**
+      include:
+      - functions/list-notes/**

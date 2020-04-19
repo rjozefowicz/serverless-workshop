@@ -1,0 +1,10 @@
+{
+  "name": "my-notes-backend",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.658.0"
+  }
+}

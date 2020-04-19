@@ -1,0 +1,22 @@
+functions:
+  delete-note:
+    memorySize: 128
+    handler: functions/delete-note/handler.func
+    role: arn:aws:iam::093271654888:role/my-notes-role-radek
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+      BUCKET_NAME: my-notes-${opt:stage}
+    events:
+      - http: 
+          path: notes/{id}
+          method: delete
+          cors: true
+          authorizer:
+            name: my-notes-authorizer-${opt:stage}
+            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+    package:
+      individually: true
+      exclude:
+      - ./**
+      include:
+      - functions/delete-note/**
