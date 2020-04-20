@@ -1,10 +1,10 @@
 functions:
   file-upload:
     handler: functions/file-upload/handler.func
-    role: arn:aws:iam::093271654888:role/my-notes-role-radek
+    role: ${self:custom.functionRoleArn}
     environment:
       TABLE_NAME: my-notes-${opt:stage}
-      BUCKET_NAME: my-notes-${opt:stage}
+      BUCKET_NAME: ${self:custom.myNotesAttachmentBucketName}
     events:
       - http:
           path: notes/files/{id}
@@ -12,14 +12,14 @@ functions:
           cors: true
           authorizer:
             name: my-notes-authorizer-${opt:stage}
-            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+            arn: ${self:custom.cognitoUserPoolArn}
       - http:
           path: notes/files
           method: post
           cors: true
           authorizer:
             name: my-notes-authorizer-${opt:stage}
-            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+            arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:

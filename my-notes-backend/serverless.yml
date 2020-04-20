@@ -8,6 +8,11 @@ provider:
   runtime: nodejs12.x
   region: eu-west-1
 
+custom:
+  functionRoleArn: arn:aws:iam::093271654888:role/my-notes-role-radek
+  cognitoUserPoolArn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+  myNotesAttachmentBucketName: my-notes-attachments-${opt:stage}
+
 functions:
   - ${file(functions/create-note/serverless.yml):functions}
   - ${file(functions/delete-note/serverless.yml):functions}
@@ -34,3 +39,17 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    MyNotesAttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.myNotesAttachmentBucketName}
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - PUT
+              MaxAge: 3000

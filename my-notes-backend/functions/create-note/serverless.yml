@@ -2,7 +2,7 @@ functions:
   create-note:
     handler: functions/create-note/handler.func
     memorySize: 128
-    role: arn:aws:iam::093271654888:role/my-notes-role-radek
+    role: ${self:custom.functionRoleArn}
     environment:
       TABLE_NAME: my-notes-${opt:stage}
     events:
@@ -12,14 +12,14 @@ functions:
           cors: true
           authorizer:
             name: my-notes-authorizer-${opt:stage}
-            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+            arn: ${self:custom.cognitoUserPoolArn}
       - http:
           path: notes/{id}
           method: put
           cors: true
           authorizer:
             name: my-notes-authorizer-${opt:stage}
-            arn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+            arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:

@@ -1,13 +1,14 @@
 functions:
   process-file:
     handler: functions/process-file/handler.func
-    role: arn:aws:iam::093271654888:role/my-notes-role-radek
+    role: ${self:custom.functionRoleArn}
     environment:
       TABLE_NAME: my-notes-${opt:stage}
     events:
       - s3: 
-          bucket: my-notes-${opt:stage}
+          bucket: ${self:custom.myNotesAttachmentBucketName}
           event: s3:ObjectCreated:Put
+          existing: true
     package:
       individually: true
       exclude:
