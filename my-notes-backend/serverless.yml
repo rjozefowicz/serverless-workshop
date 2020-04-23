@@ -9,8 +9,8 @@ provider:
   region: eu-west-1
 
 custom:
-  functionRoleArn: arn:aws:iam::093271654888:role/my-notes-role-radek
-  cognitoUserPoolArn: arn:aws:cognito-idp:eu-west-1:093271654888:userpool/eu-west-1_Zx7fjYW46
+  functionRoleArn: TODO
+  cognitoUserPoolArn: TODO
   myNotesAttachmentBucketName: my-notes-attachments-${opt:stage}
 
 functions:

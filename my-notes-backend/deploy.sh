@@ -21,4 +21,4 @@ cd functions/list-notes
 npm install --production
 cd ../..
 
-sls deploy --stage radek
+sls deploy --stage $1
