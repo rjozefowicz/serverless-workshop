@@ -1,6 +1,23 @@
 'use strict';
 
-module.exports.func = async(event, context) => {
+const uuid = require("uuid/v4");
+const AWS = require("aws-sdk");
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const USER_ID = "23";
+
+module.exports.func = async (event) => {
+    const note = JSON.parse(event.body);
+    note.userId = USER_ID;
+    note.noteId = uuid();
+    note.timestamp = new Date().getTime();
+
+    await documentClient.put({
+        Item: note,
+        TableName: process.env.TABLE_NAME
+    }).promise();
+
     return response(200);
 };
 
