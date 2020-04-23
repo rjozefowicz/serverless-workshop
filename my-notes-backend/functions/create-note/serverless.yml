@@ -3,23 +3,6 @@ functions:
     handler: functions/create-note/handler.func
     memorySize: 128
     role: ${self:custom.functionRoleArn}
-    environment:
-      TABLE_NAME: my-notes-${opt:stage}
-    events:
-      - http:
-          path: notes
-          method: post
-          cors: true
-          authorizer:
-            name: my-notes-authorizer-${opt:stage}
-            arn: ${self:custom.cognitoUserPoolArn}
-      - http:
-          path: notes/{id}
-          method: put
-          cors: true
-          authorizer:
-            name: my-notes-authorizer-${opt:stage}
-            arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:

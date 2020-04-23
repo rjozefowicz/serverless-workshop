@@ -2,24 +2,6 @@ functions:
   file-upload:
     handler: functions/file-upload/handler.func
     role: ${self:custom.functionRoleArn}
-    environment:
-      TABLE_NAME: my-notes-${opt:stage}
-      BUCKET_NAME: ${self:custom.myNotesAttachmentBucketName}
-    events:
-      - http:
-          path: notes/files/{id}
-          method: get
-          cors: true
-          authorizer:
-            name: my-notes-authorizer-${opt:stage}
-            arn: ${self:custom.cognitoUserPoolArn}
-      - http:
-          path: notes/files
-          method: post
-          cors: true
-          authorizer:
-            name: my-notes-authorizer-${opt:stage}
-            arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:
