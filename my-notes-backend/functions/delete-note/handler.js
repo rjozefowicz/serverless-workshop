@@ -1,6 +1,19 @@
 const AWS = require('aws-sdk');
 
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const USER_ID = "23";
+
 module.exports.func = async (event, context) => {
+
+    await documentClient.delete({
+        TableName: process.env.TABLE_NAME,
+        Key: {
+            userId: USER_ID,
+            noteId: event.pathParameters.id
+        }
+    }).promise();
+
     return response(200);
 };
 

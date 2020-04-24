@@ -15,7 +15,7 @@ custom:
 
 functions:
   - ${file(functions/create-note/serverless.yml):functions}
-#  - ${file(functions/delete-note/serverless.yml):functions}
+  - ${file(functions/delete-note/serverless.yml):functions}
 #  - ${file(functions/file-upload/serverless.yml):functions}
   - ${file(functions/list-notes/serverless.yml):functions}
 #  - ${file(functions/process-file/serverless.yml):functions}

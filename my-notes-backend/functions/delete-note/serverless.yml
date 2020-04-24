@@ -3,6 +3,13 @@ functions:
     memorySize: 128
     handler: functions/delete-note/handler.func
     role: ${self:custom.functionRoleArn}
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+    events:
+    - http:
+        path: notes/{id}
+        method: delete
+        cors: true
     package:
       individually: true
       exclude:
