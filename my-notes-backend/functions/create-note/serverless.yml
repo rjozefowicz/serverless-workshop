@@ -10,10 +10,16 @@ functions:
         path: notes
         method: post
         cors: true
+        authorizer:
+          name: my-notes-authorizer-${opt:stage}
+          arn: ${self:custom.cognitoUserPoolArn}
     - http:
         path: notes/{id}
         method: put
         cors: true
+        authorizer:
+          name: my-notes-authorizer-${opt:stage}
+          arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:

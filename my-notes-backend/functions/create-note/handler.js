@@ -5,14 +5,14 @@ const AWS = require("aws-sdk");
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-const USER_ID = "23";
-
 module.exports.func = async (event) => {
     const note = JSON.parse(event.body);
     
+    const userId = event.requestContext.authorizer.claims["cognito:username"];
+
     const method = event.httpMethod;
     if (method === "POST") {
-        note.userId = USER_ID;
+        note.userId = userId;
         note.timestamp = new Date().getTime();
         note.noteId = uuid();
         await documentClient.put({
@@ -25,7 +25,7 @@ module.exports.func = async (event) => {
             TableName: process.env.TABLE_NAME,
             Key: {
                 noteId,
-                userId: USER_ID
+                userId
             },
             UpdateExpression: "set title = :title, #text = :text",
             ExpressionAttributeNames: {

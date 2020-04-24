@@ -2,14 +2,14 @@ const AWS = require('aws-sdk');
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-const USER_ID = "23";
-
 module.exports.func = async (event, context) => {
+
+    const userId = event.requestContext.authorizer.claims["cognito:username"];
 
     await documentClient.delete({
         TableName: process.env.TABLE_NAME,
         Key: {
-            userId: USER_ID,
+            userId,
             noteId: event.pathParameters.id
         }
     }).promise();

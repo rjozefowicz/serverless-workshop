@@ -10,6 +10,9 @@ functions:
         path: notes/{id}
         method: delete
         cors: true
+        authorizer:
+          name: my-notes-authorizer-${opt:stage}
+          arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
       exclude:

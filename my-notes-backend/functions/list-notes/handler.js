@@ -3,15 +3,15 @@
 const AWS = require("aws-sdk");
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-const USER_ID = "23";
-
 module.exports.func = async (event, context) => {
+
+    const userId = event.requestContext.authorizer.claims["cognito:username"];
 
     const result = await documentClient.query({
         TableName: process.env.TABLE_NAME,
         KeyConditionExpression: "userId = :userId",
         ExpressionAttributeValues: {
-            ":userId": USER_ID
+            ":userId": userId
         }
     }).promise();
 
