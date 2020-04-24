@@ -10,6 +10,7 @@ provider:
 
 custom:
   functionRoleArn: arn:aws:iam::093271654888:role/my-notes-role-radek
+  cognitoUserPoolArn: TODO
   myNotesAttachmentBucketName: my-notes-attachments-${opt:stage}
 
 functions:
