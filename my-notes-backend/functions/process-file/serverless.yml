@@ -2,6 +2,13 @@ functions:
   process-file:
     handler: functions/process-file/handler.func
     role: ${self:custom.functionRoleArn}
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+    events:
+    - s3:
+        bucket: my-notes-attachments-${opt:stage}
+        event: s3:ObjectCreated:Put
+        existing: true
     package:
       individually: true
       exclude:

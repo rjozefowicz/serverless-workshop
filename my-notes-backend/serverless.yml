@@ -9,7 +9,7 @@ provider:
   region: eu-west-1
 
 custom:
-  functionRoleArn: arn:aws:iam::093271654888:role/my-notes-role-radek
+  functionRoleArn: TODO
   cognitoUserPoolArn: TODO
   myNotesAttachmentBucketName: my-notes-attachments-${opt:stage}
 
@@ -18,7 +18,7 @@ functions:
   - ${file(functions/delete-note/serverless.yml):functions}
   - ${file(functions/file-upload/serverless.yml):functions}
   - ${file(functions/list-notes/serverless.yml):functions}
-#  - ${file(functions/process-file/serverless.yml):functions}
+  - ${file(functions/process-file/serverless.yml):functions}
 
 resources:
   Resources:
