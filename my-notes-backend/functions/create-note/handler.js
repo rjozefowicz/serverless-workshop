@@ -9,21 +9,35 @@ const USER_ID = "23";
 
 module.exports.func = async (event) => {
     const note = JSON.parse(event.body);
-    note.userId = USER_ID;
-    note.timestamp = new Date().getTime();
-
+    
     const method = event.httpMethod;
     if (method === "POST") {
+        note.userId = USER_ID;
+        note.timestamp = new Date().getTime();
         note.noteId = uuid();
+        await documentClient.put({
+            Item: note,
+            TableName: process.env.TABLE_NAME
+        }).promise();
     } else if (method === "PUT") {
         const noteId = event.pathParameters.id;
-        note.noteId = noteId;
+        await documentClient.update({
+            TableName: process.env.TABLE_NAME,
+            Key: {
+                noteId,
+                userId: USER_ID
+            },
+            UpdateExpression: "set title = :title, #text = :text",
+            ExpressionAttributeNames: {
+                "#text": "text"
+            },
+            ExpressionAttributeValues: {
+                ":title": note.title,
+                ":text": note.text
+            }
+        }).promise();
     }
     
-    await documentClient.put({
-        Item: note,
-        TableName: process.env.TABLE_NAME
-    }).promise();
 
     return response(200);
 };
