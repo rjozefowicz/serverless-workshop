@@ -2,6 +2,13 @@ functions:
   list-notes:
     handler: functions/list-notes/handler.func
     role: ${self:custom.functionRoleArn}
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+    events:
+    - http:
+        path: notes
+        method: get
+        cors: true
     package:
       individually: true
       exclude:
