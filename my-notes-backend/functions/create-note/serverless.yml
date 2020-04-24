@@ -10,6 +10,10 @@ functions:
         path: notes
         method: post
         cors: true
+    - http:
+        path: notes/{id}
+        method: put
+        cors: true
     package:
       individually: true
       exclude:

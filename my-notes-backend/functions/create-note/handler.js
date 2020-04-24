@@ -10,9 +10,16 @@ const USER_ID = "23";
 module.exports.func = async (event) => {
     const note = JSON.parse(event.body);
     note.userId = USER_ID;
-    note.noteId = uuid();
     note.timestamp = new Date().getTime();
 
+    const method = event.httpMethod;
+    if (method === "POST") {
+        note.noteId = uuid();
+    } else if (method === "PUT") {
+        const noteId = event.pathParameters.id;
+        note.noteId = noteId;
+    }
+    
     await documentClient.put({
         Item: note,
         TableName: process.env.TABLE_NAME
