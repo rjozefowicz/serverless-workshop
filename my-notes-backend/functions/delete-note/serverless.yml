@@ -5,6 +5,7 @@ functions:
     role: ${self:custom.functionRoleArn}
     environment:
       TABLE_NAME: my-notes-${opt:stage}
+      BUCKET_NAME: my-notes-attachments-${opt:stage}
     events:
     - http:
         path: notes/{id}
