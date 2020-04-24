@@ -13,3 +13,7 @@ module.exports.func = async(event) => {
 function formURLDecodeComponent(stringToDecode) {
     return decodeURIComponent((stringToDecode + '').replace(/\+/g, ' '));
 }
+
+function getType(fileName) {
+    return (/\.(jpg|jpeg|png)$/i).test(fileName) ? "IMAGE" : "FILE";
+}
