@@ -1,24 +1,24 @@
 #!/bin/sh
-npm install --production
+npm install --omit=dev
 
 cd functions/create-note
-npm install --production
+npm install --omit=dev
 cd ../..
 
 cd functions/list-notes
-npm install --production
+npm install --omit=dev
 cd ../..
 
 cd functions/delete-note
-npm install --production
+npm install --omit=dev
 cd ../..
 
 cd functions/file-upload
-npm install --production
+npm install --omit=dev
 cd ../..
 
 cd functions/list-notes
-npm install --production
+npm install --omit=dev
 cd ../..
 
-sls deploy --stage $1
+serverless deploy -s $1
