@@ -5,7 +5,6 @@ functions:
     role: ${self:custom.functionRoleArn}
     package:
       individually: true
-      exclude:
-      - ./**
-      include:
+      patterns:
+      - '!./**'
       - functions/create-note/**
