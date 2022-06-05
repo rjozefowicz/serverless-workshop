@@ -16,7 +16,6 @@ functions:
             arn: ${self:custom.cognitoUserPoolArn}
     package:
       individually: true
-      exclude:
-      - ./**
-      include:
+      patterns:
+      - '!./**'
       - functions/delete-note/**

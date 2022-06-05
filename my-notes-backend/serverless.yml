@@ -1,4 +1,5 @@
 service: my-notes
+frameworkVersion: '3'
 
 package:
   individually: true
