@@ -10,13 +10,33 @@ provider:
   region: eu-west-1
 
 custom:
-  functionRoleArn: TODO
+  functionRoleArn: arn:aws:iam::093271654888:role/zeto-30-my-notes-lambda-role
   cognitoUserPoolArn: TODO
   myNotesAttachmentBucketName: my-notes-attachments-${opt:stage}
 
 functions:
-#  - ${file(functions/create-note/serverless.yml):functions}
+  - ${file(functions/create-note/serverless.yml):functions}
 #  - ${file(functions/delete-note/serverless.yml):functions}
 #  - ${file(functions/file-upload/serverless.yml):functions}
 #  - ${file(functions/list-notes/serverless.yml):functions}
 #  - ${file(functions/process-file/serverless.yml):functions}
+
+resources:
+  Resources:
+    MyNotesTable: 
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: my-notes-${opt:stage}
+        AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: noteId
+          AttributeType: S
+        KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: noteId
+          KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

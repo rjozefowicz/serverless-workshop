@@ -3,6 +3,13 @@ functions:
     handler: functions/create-note/handler.func
     memorySize: 128
     role: ${self:custom.functionRoleArn}
+    environment:
+      TABLE_NAME: my-notes-${opt:stage}
+    events:
+      - http:
+          path: notes
+          method: post
+          cors: true
     package:
       individually: true
       patterns:
